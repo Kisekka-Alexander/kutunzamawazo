@@ -19,7 +19,7 @@
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control" id="country" name="country"required>
+            <select class="form-select" id="country" name="country" required></select>
           </div>
           <div class="mb-3">
             <label for="city" class="form-label">City</label>
@@ -43,6 +43,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+
+    // Fetch countries and populate the dropdown options
+    fetch('fetch_countries.php')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('country').innerHTML = data;
+    })
+    .catch(error => console.error('Error fetching countries:', error));
 
     function saveDestination(event) {
         event.preventDefault();
