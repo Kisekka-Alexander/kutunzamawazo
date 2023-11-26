@@ -4,15 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Explorer</title>
-
-
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles here -->
-  <style>
-
-  </style>
 </head>
 <body>
 
@@ -25,14 +19,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="#">Home</a>
+              <li class="nav-item ">
+                  <a class="nav-link" href="index.html">Home</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#">About</a>
               </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="view_destinations.html">Places</a>
+            </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Career</a>
+                  <a class="nav-link" href="#">Careers</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#">Blog</a>
@@ -54,6 +51,48 @@
     <div class="d-flex flex-wrap" id="destinations">
     </div>
   </div>
+</div>
+
+<!-- Update Modal Form -->
+<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateModalLabel">Edit Travel Destination</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm" onsubmit="updateDestination(event)">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Destination Name</label>
+                        <input type="text" class="form-control" id="name" name="name" aria-describedby="name"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="country" name="country" required></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="average_cost" class="form-label">Average Cost</label>
+                        <input type="number" class="form-control" id="average_cost" name="average_cost"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control form-control-lg" id="description" rows="5" required></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="image">Upload</label>
+                        <input type="file" class="form-control" id="image" name="image"required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#confirmDeleteModal'>Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Footer Section -->
@@ -98,7 +137,15 @@
 
 <script>
 
- // Fetch countries and populate the dropdown options
+// Fetch countries and populate the dropdown options
+fetch('fetch_countries.php')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('country').innerHTML = data;
+    })
+    .catch(error => console.error('Error fetching countries:', error));
+
+ // Fetch Destinations
 fetch('fetch_destinations.php')
     .then(response => response.text())
     .then(data => {
@@ -106,6 +153,26 @@ fetch('fetch_destinations.php')
     })
     .catch(error => console.error('Error fetching Destinations:', error));
 
+
+$('#updateModal').on('show.bs.modal', function (event) {
+    var destination = $(event.relatedTarget);
+    var name = destination.data('name');
+    var averageCost = destination.data('cost');
+    var city = destination.data('city');
+    var desc = destination.data('desc');
+    var country = destination.data('country');
+
+
+
+    var modal = $(this);
+
+    modal.find('.modal-body #name').val(name);
+    modal.find('.modal-body #country').val(country);
+    modal.find('.modal-body #description').val(desc);
+    modal.find('.modal-body #average_cost').val(averageCost);
+    modal.find('.modal-body #city').val(city);
+
+});
 </script>
 
 </body>
