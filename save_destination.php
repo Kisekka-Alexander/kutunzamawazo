@@ -23,9 +23,10 @@ $name = mysqli_real_escape_string($conn, $_POST['name']);
 $country = mysqli_real_escape_string($conn, $_POST['country']);
 $city = mysqli_real_escape_string($conn, $_POST['city']);
 $averageCost = $_POST['average_cost'];
+$filePath = './resources/' . $targetFileName;
 
 // Insert data into the database
-$sql = "INSERT INTO destination (`country_id`, `destination_name`, `city`, `average_cost`, `file_path`) VALUES ('$country', '$name', '$city', $averageCost, '$targetPath')";
+$sql = "INSERT INTO destination (`country_id`, `destination_name`, `city`, `average_cost`, `file_path`) VALUES ('$country', '$name', '$city', $averageCost, '$filePath')";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(['success' => true]);
