@@ -49,7 +49,7 @@
 </div>
 
 <!-- Update Modal Form -->
-<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="updateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,12 +90,13 @@
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <button type="button" class="btn btn-primary" id='updateBtn'>Update</button>
-                    <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#confirmDeleteModal'>Delete</button>
+                    <button type='button' class='btn btn-danger' data-bs-toggle='modal' id="delete-btn">Delete</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Footer Section -->
 <footer class="mt-4 text-center">
@@ -146,7 +147,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #city').val(city);
     modal.find('.modal-body #destination_id').val(id);
     modal.find('.modal-body #existing_file_path').val(filePath);
-
+    modal.find('.modal-body #delete-btn').attr('data-bs-target', `#confirmDeleteModal${id}`)
 
 });
 

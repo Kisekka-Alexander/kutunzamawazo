@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
         </div>
       </div>";
 
-      echo "<div class='modal fade' id='confirmDeleteModal' tabindex='-1' aria-labelledby='confirmDeleteModalLabel' aria-hidden='true'>
+      echo "<div class='modal fade' id='confirmDeleteModal" . $row['id'] . "' tabindex='1' aria-labelledby='confirmDeleteModalLabel' aria-hidden='true'>
         <div class='modal-dialog'>
           <div class='modal-content'>
             <div class='modal-header'>

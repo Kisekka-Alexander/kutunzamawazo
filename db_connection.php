@@ -1,8 +1,11 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "Leo@2567";
-$database = "kutunzamawazo";
+include 'config.php';
+
+// Use $db_config variables as needed
+$host = $db_config['host'];
+$username = $db_config['username'];
+$password = $db_config['password'];
+$database = $db_config['database'];
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);

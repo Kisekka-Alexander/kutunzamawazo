@@ -4,7 +4,7 @@ include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $destinationId = $_GET['id'];
-
+    
     $updateQuery = "UPDATE destination SET deleted = 1 WHERE id = ?";
     
     $stmt = $conn->prepare($updateQuery);
