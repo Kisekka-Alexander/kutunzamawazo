@@ -10,13 +10,14 @@ if ($result->num_rows > 0) {
 
       echo "<div class='card m-4 border-0' data-bs-toggle='modal' data-bs-target='#updateModal' data-city='" . $row['city'] . "' data-name='" . $row['destination_name'] . "' 
       data-cost='" . $row['average_cost'] . "' data-desc='" . $row['description'] . "' data-country='" . $row['country_id'] . "' data-id='" . $row['id'] . "' data-image='" . $row['file_path'] . "'>
-        <img class='d-block w-100 rounded' src='" . $row['file_path'] . "' alt='" . $row['destination_name'] . "' style='width: 10px; height: 200px;'>
+        <img class='d-block w-100 rounded' src='" . $row['file_path'] . "' alt='" . $row['destination_name'] . "' style='width: 40px; height: 200px;'>
         <h3>" . $row['destination_name'] . "</h3>
         <p>" . $row['description'] .  "</p>
         <div class='d-flex justify-content-between'>
           <div class='d-flex justify-content-between'><p>1000km</p></div>
           <p>$" . $row['average_cost'] . "</p>
-      </div></div>";
+        </div>
+      </div>";
 
       echo "<div class='modal fade' id='confirmDeleteModal' tabindex='-1' aria-labelledby='confirmDeleteModalLabel' aria-hidden='true'>
         <div class='modal-dialog'>
