@@ -57,9 +57,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateForm" onsubmit="updateDestination()">
-                    <!-- div to keep the destination id -->
-                    <div id="destination_id" name="destination_id" style="display: none;"></div>
+                <form id="updateForm">
+                    <!-- div to keep the destination id and file path -->
+                    <div style="display: none;">
+                        <input type="text" class="form-control" id="destination_id" name="destination_id" aria-describedby="destination_id">
+                        <input type="text" class="form-control" id="existing_file_path" name="existing_file_path" aria-describedby="existing_file_path">
+
+                    </div>
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Destination Name</label>
@@ -85,7 +89,7 @@
                         <label class="input-group-text" for="image">Upload</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-primary" id='updateBtn'>Update</button>
                     <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#confirmDeleteModal'>Delete</button>
                 </form>
             </div>
@@ -131,41 +135,47 @@ $('#updateModal').on('show.bs.modal', function (event) {
     var desc = destination.data('desc');
     var country = destination.data('country');
     var id = destination.data('id');
+    var filePath = destination.data('image');
+
 
     var modal = $(this);
-
     modal.find('.modal-body #name').val(name);
     modal.find('.modal-body #country').val(country);
     modal.find('.modal-body #description').val(desc);
     modal.find('.modal-body #average_cost').val(averageCost);
     modal.find('.modal-body #city').val(city);
     modal.find('.modal-body #destination_id').val(id);
+    modal.find('.modal-body #existing_file_path').val(filePath);
 
 
 });
 
-// Update Destination Function
-function updateDestination() {
+$(document).ready(function () {
+    $('#updateBtn').on('click', function () {
+        var formData = new FormData($('#updateForm')[0]);
 
-    const form = document.getElementById('updateForm');
-    const formData = new FormData(form);
-
-    fetch('update_destination.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Destination updated successfully!');
-        } else {
-            alert('Error updating destination.');
-        }
-    })
-    .catch(error => {
-        console.error('Error updating destination:', error);
+        $.ajax({
+            url: 'update_destination.php',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                var data = JSON.parse(response);
+                if (data.success) {
+                    window.location.href = 'view_destinations.html';
+              } else {
+                    alert('Error updating destination: ' + data.error);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     });
-    }
+});
+
+
 </script>
 
 </body>
