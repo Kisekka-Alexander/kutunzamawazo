@@ -1,4 +1,5 @@
 <?php
+// Connect to Database
 require_once 'db_connection.php';
 
 // Fetch data from the Destination table
