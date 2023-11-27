@@ -144,9 +144,9 @@ $('#updateModal').on('show.bs.modal', function (event) {
     var country = destination.data('country');
     var id = destination.data('id');
     var filePath = destination.data('image');
-
-
     var modal = $(this);
+
+    
     modal.find('.modal-body #name').val(name);
     modal.find('.modal-body #country').val(country);
     modal.find('.modal-body #description').val(desc);
@@ -158,6 +158,8 @@ $('#updateModal').on('show.bs.modal', function (event) {
 
 });
 
+
+// Update Travel Destination 
 $(document).ready(function () {
     $('#updateBtn').on('click', function () {
         var formData = new FormData($('#updateForm')[0]);
